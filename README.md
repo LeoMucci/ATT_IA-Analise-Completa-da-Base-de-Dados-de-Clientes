@@ -37,4 +37,6 @@ df_clientes = df_clientes[(df_clientes['salario'] >= 0) & (df_clientes['salario'
 df_clientes['score_bom_pagador'] = df_clientes['score_bom_pagador'].replace({'A': 10, 'B': 8, 'C': 6, 'D': 4, 'E': 2})
 df_clientes = df_clientes.drop_duplicates()
 ```
-
+#### 📄 Descrição:
+Carregamento dos Dados: Utilizamos a função pd.read_csv() para carregar a base de clientes de um arquivo CSV.
+Limpeza dos Dados: Removemos registros com idades, alturas
