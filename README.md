@@ -51,6 +51,40 @@ df_clientes = df_clientes.drop_duplicates()
 #### 💻 Código:
 ```python
 
+# Calcular a média, mediana, moda e intervalo interquartil para atributos numéricos
+media = df_clientes[['idade', 'altura_cm', 'salario', 'peso']].mean()
+mediana = df_clientes[['idade', 'altura_cm', 'salario', 'peso']].median()
+moda_idade = stats.mode(df_clientes['idade'].dropna(), keepdims=True)
+moda_altura = stats.mode(df_clientes['altura_cm'].dropna(), keepdims=True)
+moda_salario = stats.mode(df_clientes['salario'].dropna(), keepdims=True)
+moda_peso = stats.mode(df_clientes['peso'].dropna(), keepdims=True)
+
+moda = {
+    'idade': moda_idade.mode[0] if moda_idade.count[0] > 0 else 'Nenhuma moda',
+    'altura_cm': moda_altura.mode[0] if moda_altura.count[0] > 0 else 'Nenhuma moda',
+    'salario': moda_salario.mode[0] if moda_salario.count[0] > 0 else 'Nenhuma moda',
+    'peso': moda_peso.mode[0] if moda_peso.count[0] > 0 else 'Nenhuma moda'
+}
+
+# Calcular o intervalo interquartil para atributos numéricos
+intervalo_interquartil = df_clientes[['idade', 'altura_cm', 'salario', 'peso']].quantile([0.25, 0.75])
+intervalo_interquartil.index = ['Q1', 'Q3']
+
+# Organizar os resultados em um DataFrame
+resultados = pd.DataFrame({
+    'Média': media,
+    'Mediana': mediana,
+    'Moda': list(moda.values()),
+    'Q1': intervalo_interquartil.loc['Q1'],
+    'Q3': intervalo_interquartil.loc['Q3']
+})
+
+# Adicionar a coluna do IQR
+resultados['IQR'] = resultados.loc['Q3'] - resultados.loc['Q1']
+
+# Exibir os resultados em forma de tabela
+print("\nResumo Estatístico dos Atributos Numéricos:\n")
+print(resultados.to_string())
 
 
 ```
@@ -68,6 +102,18 @@ df_clientes = df_clientes.drop_duplicates()
 #### 💻 Código:
 ```python
 
+# Descrever a distribuição de frequência dos atributos categóricos
+frequencia_sexo = df_clientes['sexo'].value_counts().rename_axis('Sexo').reset_index(name='Frequência')
+frequencia_genero_musical = df_clientes['genero_musical_favorito'].value_counts().rename_axis('Gênero Musical Favorito').reset_index(name='Frequência')
+frequencia_cidade = df_clientes['cidade'].value_counts().rename_axis('Cidade').reset_index(name='Frequência')
+frequencia_profissao = df_clientes['profissao'].value_counts().rename_axis('Profissão').reset_index(name='Frequência')
+
+# Exibir as frequências em forma de tabela
+print("\nDistribuição de Frequência dos Atributos Categóricos:\n")
+print("Sexo:\n", frequencia_sexo.to_string(index=False))
+print("\nGênero Musical Favorito:\n", frequencia_genero_musical.to_string(index=False))
+print("\nCidade:\n", frequencia_cidade.to_string(index=False))
+print("\nProfissão:\n", frequencia_profissao.to_string(index=False))
 
 
 ```
@@ -93,6 +139,21 @@ Os dados foram carregados e limpos conforme descrito na Parte 1.
 #### 💻 Código:
 ```python
 
+# Calcular a amplitude, variância e desvio-padrão para atributos numéricos
+amplitude = df_clientes[['idade', 'altura_cm', 'salario', 'peso']].max() - df_clientes[['idade', 'altura_cm', 'salario', 'peso']].min()
+variancia = df_clientes[['idade', 'altura_cm', 'salario', 'peso']].var()
+desvio_padrao = df_clientes[['idade', 'altura_cm', 'salario', 'peso']].std()
+
+# Organizar os resultados em um DataFrame
+resultados_dispersao = pd.DataFrame({
+    'Amplitude': amplitude,
+    'Variância': variancia,
+    'Desvio-Padrão': desvio_padrao
+})
+
+# Exibir os resultados em forma de tabela
+print("\nMedidas de Dispersão dos Atributos Numéricos:\n")
+print(resultados_dispersao.to_string())
 
 
 ```
@@ -115,7 +176,16 @@ Os dados foram carregados e limpos conforme descrito na Parte 1.
 #### 💻 Código:
 ```python
 
+# Análise de Correlação
+correlacao = df_clientes[['idade', 'altura_cm', 'salario', 'peso']].corr()
 
+# Identificar pares de atributos com correlação forte
+correlacao_forte = correlacao[(correlacao > 0.7) | (correlacao < -0.7)]
+print("\nMatriz de Correlação:\n")
+print(correlacao.to_string())
+
+print("\nPares de Atributos com Correlação Forte (|corr| > 0.7):\n")
+print(correlacao_forte.to_string())
 
 ```
 
@@ -137,6 +207,44 @@ Os dados foram carregados e limpos conforme descrito na Parte 1.
 #### 💻 Código:
 ```python
 
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Histogramas para atributos numéricos
+for coluna in ['idade', 'altura_cm', 'salario', 'peso']:
+    plt.figure()
+    sns.histplot(df_clientes[coluna], kde=True)
+    plt.title(f'Histograma de {coluna}')
+    plt.xlabel(coluna)
+    plt.ylabel('Frequência')
+    plt.savefig(f'histograma_{coluna}.png')
+
+# Box plots para atributos numéricos (individuais)
+for coluna in ['idade', 'altura_cm', 'salario', 'peso']:
+    plt.figure()
+    sns.boxplot(y=df_clientes[coluna])
+    plt.title(f'Box Plot de {coluna}')
+    plt.ylabel(coluna)
+    plt.savefig(f'boxplot_{coluna}.png')
+
+# Gráficos de dispersão para pares de atributos com correlação forte
+for coluna1 in ['idade', 'altura_cm', 'salario', 'peso']:
+    for coluna2 in ['idade', 'altura_cm', 'salario', 'peso']:
+        if coluna1 != coluna2 and abs(correlacao.loc[coluna1, coluna2]) > 0.7:
+            plt.figure()
+            sns.scatterplot(x=df_clientes[coluna1], y=df_clientes[coluna2])
+            plt.title(f'Dispersão entre {coluna1} e {coluna2}')
+            plt.xlabel(coluna1)
+            plt.ylabel(coluna2)
+            plt.savefig(f'dispersao_{coluna1}_{coluna2}.png')
+
+# Mapa de calor para a matriz de correlação
+plt.figure(figsize=(10, 8))
+sns.heatmap(correlacao, annot=True, cmap='coolwarm', center=0)
+plt.title('Mapa de Calor da Matriz de Correlação')
+plt.savefig('mapa_calor_correlacao.png')
+
+plt.show()
 
 
 ```
@@ -162,6 +270,27 @@ Assumimos que os dados já estão integrados. Em um cenário real, descreveríam
 #### 💻 Código:
 ```python
 
+# Identificar e corrigir valores inconsistentes nos atributos:
+# - Idade negativa ou fora do intervalo plausível (18-70 anos)
+# - Altura fora do intervalo normal (150-200 cm)
+# - Sexo inconsistente
+# - Salário fora do intervalo razoável (0-100000)
+# - Score Bom Pagador inconsistente
+
+# Corrigir idades inconsistentes
+df_clientes = df_clientes[(df_clientes['idade'] >= 18) & (df_clientes['idade'] <= 70)]
+
+# Corrigir alturas inconsistentes
+df_clientes = df_clientes[(df_clientes['altura_cm'] >= 150) & (df_clientes['altura_cm'] <= 200)]
+
+# Uniformizar valores inconsistentes em 'sexo'
+df_clientes['sexo'] = df_clientes['sexo'].replace(['Desconhecido', 'Outro'], 'Não Informado')
+
+# Corrigir salários inconsistentes
+df_clientes = df_clientes[(df_clientes['salario'] >= 0) & (df_clientes['salario'] <= 100000)]
+
+# Corrigir valores inconsistentes em 'score_bom_pagador'
+df_clientes['score_bom_pagador'] = df_clientes['score_bom_pagador'].replace({'A': 10, 'B': 8, 'C': 6, 'D': 4, 'E': 2})
 
 
 ```
@@ -178,6 +307,22 @@ Assumimos que os dados já estão integrados. Em um cenário real, descreveríam
 #### 💻 Código:
 ```python
 
+# Identificar e remover dados redundantes (duplicatas e colunas redundantes)
+# Remover duplicatas
+df_clientes = df_clientes.drop_duplicates()
+
+# Remover colunas redundantes (exemplo: suponha que a coluna 'idade' seja redundante)
+# df_clientes = df_clientes.drop(columns=['idade'])
+
+# Exibir o DataFrame Processado
+print("\nDataFrame Processado:\n")
+print(df_clientes.head())
+
+print("\nResumo do DataFrame Processado:\n")
+print(df_clientes.info())
+
+print("\nEstatísticas Descritivas do DataFrame Processado:\n")
+print(df_clientes.describe())
 
 
 ```
@@ -200,6 +345,16 @@ Assumimos que os dados já estão integrados. Em um cenário real, descreveríam
 #### 💻 Código:
 ```python
 
+from sklearn.preprocessing import MinMaxScaler
+
+# Selecionar colunas numéricas para normalização
+colunas_numericas = ['idade', 'altura_cm', 'score_bom_pagador', 'salario', 'peso']
+
+# Instanciar o MinMaxScaler
+scaler = MinMaxScaler()
+
+# Aplicar a normalização Min-Max
+df_clientes[colunas_numericas] = scaler.fit_transform(df_clientes[colunas_numericas])
 
 
 ```
@@ -215,6 +370,34 @@ Assumimos que os dados já estão integrados. Em um cenário real, descreveríam
 #### 💻 Código:
 ```python
 
+from sklearn.preprocessing import OneHotEncoder
+
+# Instanciar o OneHotEncoder
+encoder = OneHotEncoder(sparse_output=False)
+
+# Codificar o atributo 'sexo'
+sexo_encoded = encoder.fit_transform(df_clientes[['sexo']])
+sexo_encoded_df = pd.DataFrame(sexo_encoded, columns=encoder.get_feature_names_out(['sexo']))
+
+# Codificar o atributo 'genero_musical_favorito'
+genero_encoded = encoder.fit_transform(df_clientes[['genero_musical_favorito']])
+genero_encoded_df = pd.DataFrame(genero_encoded, columns=encoder.get_feature_names_out(['genero_musical_favorito']))
+
+# Concatenar as colunas codificadas ao DataFrame original
+df_clientes = pd.concat([df_clientes, sexo_encoded_df, genero_encoded_df], axis=1)
+
+# Remover colunas originais categóricas
+df_clientes = df_clientes.drop(columns=['sexo', 'genero_musical_favorito'])
+
+# Exibir o DataFrame Processado
+print("\nDataFrame Processado:\n")
+print(df_clientes.head())
+
+print("\nResumo do DataFrame Processado:\n")
+print(df_clientes.info())
+
+print("\nEstatísticas Descritivas do DataFrame Processado:\n")
+print(df_clientes.describe())
 
 
 ```
