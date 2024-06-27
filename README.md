@@ -49,6 +49,11 @@ df_clientes = df_clientes.drop_duplicates()
 - `DataFrame.quantile()`: Calcula os quartis dos dados.
 
 #### 💻 Código:
+```python
+
+
+
+```
 
 #### 📄 Descrição:
 - **Cálculo da Média, Mediana, Moda e Intervalo Interquartil**: Utilizamos métodos do Pandas e SciPy para calcular as estatísticas descritivas dos atributos numéricos.
@@ -61,6 +66,11 @@ df_clientes = df_clientes.drop_duplicates()
 - `Series.reset_index()`: Reseta o índice da Series.
 
 #### 💻 Código:
+```python
+
+
+
+```
 
 #### 📄 Descrição:
 - **Distribuição de Frequência**: Utilizamos `value_counts()` para contar a frequência dos valores categóricos e formatamos a saída com `rename_axis()` e `reset_index()`.
@@ -81,6 +91,11 @@ Os dados foram carregados e limpos conforme descrito na Parte 1.
 - `DataFrame.std()`: Calcula o desvio-padrão dos dados.
 
 #### 💻 Código:
+```python
+
+
+
+```
 
 #### 📄 Descrição:
 - **Cálculo da Amplitude, Variância e Desvio-Padrão**: Utilizamos métodos do Pandas para calcular as medidas de dispersão dos atributos numéricos.
@@ -98,6 +113,11 @@ Os dados foram carregados e limpos conforme descrito na Parte 1.
 - `DataFrame.corr()`: Calcula a matriz de correlação dos dados.
 
 #### 💻 Código:
+```python
+
+
+
+```
 
 #### 📄 Descrição:
 - **Análise de Correlação**: Utilizamos o método `corr()` do Pandas para calcular a matriz de correlação entre os atributos numéricos.
@@ -115,6 +135,11 @@ Os dados foram carregados e limpos conforme descrito na Parte 1.
 - `sns.heatmap()`: Gera mapas de calor.
 
 #### 💻 Código:
+```python
+
+
+
+```
 
 #### 📄 Descrição:
 - **Histogramas, Box Plots, Gráficos de Dispersão e Mapas de Calor**: Utilizamos seaborn e matplotlib para criar diversas visualizações gráficas, que ajudam na interpretação dos dados.
@@ -135,6 +160,11 @@ Assumimos que os dados já estão integrados. Em um cenário real, descreveríam
 - `DataFrame.drop_duplicates()`: Remove registros duplicados.
 
 #### 💻 Código:
+```python
+
+
+
+```
 
 #### 📄 Descrição:
 - **Correção de Valores Inconsistentes**: Removemos registros com valores inconsistentes em atributos como idade, altura, sexo, salário e score bom pagador.
@@ -146,6 +176,11 @@ Assumimos que os dados já estão integrados. Em um cenário real, descreveríam
 - `DataFrame.drop()`: Remove colunas redundantes.
 
 #### 💻 Código:
+```python
+
+
+
+```
 
 #### 📄 Descrição:
 - **Remoção de Redundâncias**: Removemos registros duplicados e colunas redundantes, garantindo a consistência dos dados.
@@ -163,6 +198,11 @@ Assumimos que os dados já estão integrados. Em um cenário real, descreveríam
 - `MinMaxScaler()`: Aplica a normalização Min-Max nos dados.
 
 #### 💻 Código:
+```python
+
+
+
+```
 
 #### 📄 Descrição:
 - **Normalização de Dados**: Utilizamos `MinMaxScaler` para normalizar os atributos numéricos no intervalo [0, 1].
@@ -173,6 +213,11 @@ Assumimos que os dados já estão integrados. Em um cenário real, descreveríam
 - `OneHotEncoder()`: Aplica a codificação One-Hot nos dados categóricos.
 
 #### 💻 Código:
+```python
+
+
+
+```
 
 #### 📄 Descrição:
 - **Codificação de Dados Categóricos**: Utilizamos `OneHotEncoder` para transformar atributos categóricos em variáveis dummy, permitindo seu uso em modelos de aprendizado de máquina.
