@@ -404,3 +404,22 @@ print(df_clientes.describe())
 
 #### 📄 Descrição:
 - **Codificação de Dados Categóricos**: Utilizamos `OneHotEncoder` para transformar atributos categóricos em variáveis dummy, permitindo seu uso em modelos de aprendizado de máquina.
+
+---
+
+## 💥Conclusão
+
+Neste projeto, aplicamos uma abordagem abrangente para a análise e transformação de uma base de dados de clientes, utilizando uma variedade de técnicas estatísticas e computacionais. As etapas seguidas incluíram a limpeza e preparação dos dados, o cálculo de estatísticas descritivas, a análise de correlação, a visualização gráfica dos dados, a correção de valores inconsistentes, a remoção de redundâncias e a transformação de dados para fins de modelagem.
+
+Os principais resultados obtidos incluem:
+
+- **Limpeza e Preparação de Dados**: Conseguimos identificar e corrigir valores inconsistentes e duplicados, garantindo a qualidade dos dados para análises subsequentes.
+- **Estatísticas Descritivas**: Foram calculadas medidas centrais (média, mediana, moda) e medidas de dispersão (variância, desvio-padrão, amplitude), fornecendo uma visão clara das características dos dados.
+- **Análise de Correlação**: Identificamos relações significativas entre diferentes atributos numéricos, o que pode guiar futuras análises e decisões baseadas em dados.
+- **Visualizações Gráficas**: Criamos diversas representações visuais, como histogramas, box plots, gráficos de dispersão e mapas de calor, que ajudaram a interpretar os dados de maneira intuitiva e informativa.
+- **Transformação de Dados**: Normalizamos os dados numéricos e codificamos os atributos categóricos, tornando os dados prontos para uso em modelos de aprendizado de máquina e outras análises avançadas.
+
+Este projeto demonstrou a importância de um processo bem-estruturado de análise e transformação de dados para extrair insights valiosos e garantir a qualidade dos dados. As técnicas aplicadas aqui são fundamentais para qualquer análise de dados robusta e servem como base para futuras análises mais complexas e modelagens preditivas.
+
+Em suma, este relatório não só documenta o processo seguido, mas também fornece uma base sólida para trabalhos futuros, evidenciando a importância de uma abordagem sistemática e detalhada na análise de dados.
+
