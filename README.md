@@ -421,5 +421,4 @@ Os principais resultados obtidos incluem:
 
 Este projeto demonstrou a importância de um processo bem-estruturado de análise e transformação de dados para extrair insights valiosos e garantir a qualidade dos dados. As técnicas aplicadas aqui são fundamentais para qualquer análise de dados robusta e servem como base para futuras análises mais complexas e modelagens preditivas.
 
-Em suma, este relatório não só documenta o processo seguido, mas também fornece uma base sólida para trabalhos futuros, evidenciando a importância de uma abordagem sistemática e detalhada na análise de dados.
 
